@@ -35,11 +35,6 @@ plugin interface is on your shoulder.
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 
-%if %{undefined python_enable_dependency_generator} && %{undefined python_disable_dependency_generator}
-# Put manual requires here:
-Requires:       python%{python3_pkgversion}-foo
-%endif
-
 %description -n python%{python3_pkgversion}-%{srcname}
 %_description
 

@@ -6,7 +6,7 @@
 
 Name:           pyexcel-io
 Version:        0.6.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A python library to read and write structured data in csv
 License:        New BSD
 URL:            https://github.com/pyexcel/pyexcel-io
@@ -24,11 +24,14 @@ BuildRequires:  python%{python3_pkgversion}-nose
 %{?python_enable_dependency_generator}
 
 
-%description
+%define _description %{expand:
 pyexcel-io provides one application programming interface(API) to read
 and write the data in excel format, import the data into and export the data
 from database. It provides support for csv(z) format, django database and
 sqlalchemy supported databases.
+}
+%description
+%_description
 
 
 %package -n python%{python3_pkgversion}-%{srcname}
@@ -36,7 +39,7 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
-%summary
+%_description
 
 
 %prep

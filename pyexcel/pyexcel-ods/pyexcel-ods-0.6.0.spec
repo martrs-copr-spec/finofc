@@ -5,7 +5,7 @@
 
 Name:           pyexcel-ods
 Version:        0.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library to read, manipulate and write data in ods format
 License:        New BSD
 URL:            https://github.com/pyexcel/pyexcel-ods
@@ -24,22 +24,19 @@ BuildRequires:  python%{python3_pkgversion}-nose
 %{?python_enable_dependency_generator}
 
 
-%description
+%define _description %{expand:
 pyexcel-ods is a tiny wrapper library to read, manipulate and write data in
 ods format using python.
-
+}
+%description
+%_description
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 
-%if %{undefined python_enable_dependency_generator} && %{undefined python_disable_dependency_generator}
-# Put manual requires here:
-Requires:       python%{python3_pkgversion}-foo
-%endif
-
 %description -n python%{python3_pkgversion}-%{srcname}
-%summary
+%_description
 
 
 %prep
