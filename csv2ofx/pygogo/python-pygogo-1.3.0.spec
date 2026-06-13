@@ -21,7 +21,7 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pkutils
 BuildRequires:  python%{python3_pkgversion}-flake8
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-nose
+BuildRequires:  python%{python3_pkgversion}-nose3
 BuildRequires:  python%{python3_pkgversion}-pylint
 
 %{?python_enable_dependency_generator}
