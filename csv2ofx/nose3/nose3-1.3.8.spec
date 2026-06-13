@@ -8,7 +8,7 @@ Release:        2%{?dist}
 Summary:        nose extends unittest to make testing easier
 License:        GNU LGPL
 URL:            https://github.com/jayvdb/nose3
-Source0:        %{srcname}-%{version}.tar.gz
+Source0:        https://github.com/jayvdb/nose3/archive/refs/tags/v%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
