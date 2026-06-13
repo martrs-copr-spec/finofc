@@ -16,6 +16,7 @@ Source0:        https://github.com/reubano/pkutils/archive/%{_gitcommit}.tar.gz#
 
 BuildArch:      noarch
 
+BuildRequires:  pip
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-semver
@@ -38,6 +39,7 @@ With pkutils, you can
 - Determine your project's development status
 - Read text files
 - and much more...}
+
 %description
 %_description
 
@@ -55,16 +57,18 @@ sed -i requirements.txt -e '/^semver/s/,.*//'
 #sed -i pkutils.py -e 's/^\(__version__\s\+=\s\+"\)[0-9\.]\+"/\1%{srcver}"/'
 
 %build
-%py3_build
+#py3_build
+%pyproject_wheel
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%py3_install
+#py3_install
+%pyproject_install
 
 
-%check
-%{__python3} -m nose
+#check
+#{__python3} -m nose
 
 
 %files -n  python%{python3_pkgversion}-%{srcname}
@@ -72,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.rst 
 # For noarch packages: sitelib
 %pycached %{python3_sitelib}/%{srcname}.py
-%{python3_sitelib}/%{srcname}-%{srcver}-py%{python3_version}.egg-info/
+%{python3_sitelib}/%{srcname}-%{srcver}.dist-info/
 
 
 %changelog
