@@ -4,7 +4,7 @@
 
 Name:           python-lml
 Version:        0.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Load me later: A lazy plugin management system
 License:        New BSD
 URL:            https://github.com/python-lml/lml
@@ -15,7 +15,11 @@ BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pytest
+%if %{?fedora} >= 43
+BuildRequires:  python%{python3_pkgversion}-pynose
+%else
 BuildRequires:  python%{python3_pkgversion}-nose
+%endif
 BuildRequires:  python%{python3_pkgversion}-isort
 
 %{?python_enable_dependency_generator}
