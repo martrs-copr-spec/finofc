@@ -19,7 +19,11 @@ BuildRequires:  python%{python3_pkgversion}-pyexcel
 BuildRequires:  python%{python3_pkgversion}-odfpy
 BuildRequires:  python%{python3_pkgversion}-psutil
 BuildRequires:  python%{python3_pkgversion}-wheel
+%if %{?fedora} >= 43
+BuildRequires:  python%{python3_pkgversion}-pynose
+%else
 BuildRequires:  python%{python3_pkgversion}-nose
+%endif
 
 %{?python_enable_dependency_generator}
 
