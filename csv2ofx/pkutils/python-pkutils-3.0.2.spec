@@ -24,7 +24,11 @@ BuildRequires:  python%{python3_pkgversion}-wheel
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-flake8
 BuildRequires:  python%{python3_pkgversion}-pylint
-BuildRequires:  python%{python3_pkgversion}-nose3
+%if 0%{?fedora} >= 43
+BuildRequires:  python%{python3_pkgversion}-pynose
+%else
+BuildRequires:  python%{python3_pkgversion}-nose
+%endif
 BuildRequires:  python%{python3_pkgversion}-coverage
 BuildRequires:  python%{python3_pkgversion}-tox
 
@@ -67,8 +71,8 @@ rm -rf $RPM_BUILD_ROOT
 %pyproject_install
 
 
-#check
-#{__python3} -m nose
+%check
+%{__python3} -m nose
 
 
 %files -n  python%{python3_pkgversion}-%{srcname}
