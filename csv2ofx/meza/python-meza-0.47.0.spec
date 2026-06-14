@@ -40,17 +40,7 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 sed -i requirements.txt -e 's/,<.*//' -e 's/==/>=/'
-
-# update to python3-dbfread 2.0.7 instead of 2.0.4:
-# read_header(.) instead of read_headers(.)
-#ed meza/dbf.py <<EOF
-#/^class DBF2(/
-#/self._read_headers(/
-#s/\(self._read_header\)s\(([^,)]*\),.*/\1\2)/
-#p
-#wq
-#EOF
-
+sed -i meza/convert.py -e 's/day \(must be in\)/\1/'
 
 %build
 %pyproject_wheel
