@@ -19,7 +19,11 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-lml
 BuildRequires:  python%{python3_pkgversion}-chardet
 BuildRequires:  python%{python3_pkgversion}-sqlalchemy
+%if 0%{?fedora} >= 43
+BuildRequires:  python%{python3_pkgversion}-pynose
+%else
 BuildRequires:  python%{python3_pkgversion}-nose
+%endif
 
 %{?python_enable_dependency_generator}
 
