@@ -13,6 +13,7 @@ Summary:        Python logger with superpowers
 License:        MIT
 URL:            https://github.com/reubano/pygogo
 Source0:        https://github.com/reubano/pygogo/archive/%{_gitcommit}.tar.gz#/%{srcname}-%{version}.tar.gz
+Patch0:         %{name}-testfix.patch
 
 BuildArch:      noarch
 
@@ -21,7 +22,11 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pkutils
 BuildRequires:  python%{python3_pkgversion}-flake8
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-nose3
+%if %{?fedora} >= 43
+BuildRequires:  python%{python3_pkgversion}-pynose
+%else
+BuildRequires:  python%{python3_pkgversion}-nose
+%endif
 BuildRequires:  python%{python3_pkgversion}-pylint
 
 %{?python_enable_dependency_generator}

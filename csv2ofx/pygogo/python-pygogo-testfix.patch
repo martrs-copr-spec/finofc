@@ -1,0 +1,90 @@
+--- pygogo.orig/tests/test_main.py	2023-08-31 07:44:24.000000000 -0700
++++ pygogo/tests/test_main.py	2026-06-13 17:54:17.577976777 -0700
+@@ -47,6 +47,7 @@
+     def test_formatters(self):
+         # basic
+         sys.stderr = StringIO()
++        sys.stdout = StringIO()
+         logger = gogo.Gogo("stderr_if_gt_error", "error").logger
+         logger.warning("stdout")
+         logger.error("stderr")
+@@ -80,6 +81,8 @@
+ 
+     def test_handlers(self):
+         f = StringIO()
++        sys.stdout = StringIO()
++
+         hdlr = gogo.handlers.fileobj_hdlr(f)
+         lggr = gogo.Gogo("test_handlers", high_hdlr=hdlr).logger
+ 
+@@ -97,6 +100,7 @@
+ 
+     def test_multiple_loggers(self):
+         f = StringIO()
++        sys.stdout = StringIO()
+ 
+         going = gogo.Gogo(
+             "myapp",
+@@ -139,6 +143,7 @@
+     def test_params_and_looping(self):
+         levels = ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL")
+         f = StringIO()
++        sys.stdout = StringIO()
+         going = gogo.Gogo(low_hdlr=gogo.handlers.fileobj_hdlr(f))
+         logger1 = going.get_logger("area1")
+         logger2 = gogo.Gogo().get_logger("area2")
+@@ -159,6 +164,8 @@
+         nt.assert_equal(logger2_msg.strip(), sys.stdout.getvalue().strip())
+ 
+     def test_debugging(self):
++        sys.stdout = StringIO()
++
+         console_msg = (
+             "This should log\nSo should this\nAnd this too\nThis should log "
+             "also\nSo should this\nAnd this too\nBut this one should\nAnd this"
+@@ -186,6 +193,8 @@
+         nt.assert_equal(console_msg, results)
+ 
+     def test_structured_formatter(self):
++        sys.stdout = StringIO()
++
+         console_msg = {
+             "snowman": "\u2603",
+             "name": "structured_formatter.base",
+@@ -215,6 +224,8 @@
+             f(console_msg[k], result[k])
+ 
+     def test_structured_logging(self):
++        sys.stdout = StringIO()
++
+         kwargs = {"persist": True}
+         extra = {"additional": True}
+         meta = set(["level", "name", "time"])
+@@ -272,6 +283,7 @@
+         nt.ok_(len(results[3]["time"][20:]))
+ 
+     def test_named_loggers(self):
++        sys.stdout = StringIO()
+         sys.stderr = sys.stdout
+         logger1 = gogo.Gogo("named").logger
+         logger2 = gogo.Gogo("named").logger
+@@ -310,6 +322,7 @@
+         nt.assert_not_equal(*(loads(i)["test"] for i in lines[2:4]))
+ 
+     def test_extra(self):
++        sys.stdout = StringIO()
+         extra = {"additional": True}
+         logger1 = gogo.Gogo("basic").get_structured_logger("base2", context=True)
+         logger1.debug("basic", extra=extra)
+--- pygogo.orig/pygogo/formatters.py	2023-08-31 07:44:24.000000000 -0700
++++ pygogo/pygogo/formatters.py	2026-06-13 19:29:38.878670221 -0700
+@@ -10,7 +10,8 @@
+ Examples:
+     Add a console formatter::
+ 
+-        >>> import sys
++        >>> import sys, logging
++        >>> logging.getLogger().setLevel(logging.DEBUG)
+ 
+         >>> logger = logging.getLogger('console_logger')
+         >>> hdlr = logging.StreamHandler(sys.stdout)
